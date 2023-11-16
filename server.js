@@ -29,13 +29,12 @@ app.post("/send-message", async (req, res) => {
     };
 
     const response = await axios.post(
-      "https://api.line.me/v2/bot/message/push",
+      `${LINT_BOT_API}/bot/message/push`,
       body,
       { headers }
     );
     res.json({ message: "Success", responseData: response.data });
   } catch (error) {
-    console.log(error);
     res.json({
       message: error.message,
       header: headers
