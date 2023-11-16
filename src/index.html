@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <img id="lineImage" width="100" />
+      <p id="lineName">Name</p>
+    </div>
+    <div>
+      <input type="text" id="txtMessage" />
+      <button onclick="handleSend()">Send</button>
+    </div>
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+
+    <script>
+      let lineUserId = "";
+      const main = async () => {
+        await liff.init({ liffId: "2001700713-Gnz6dYJa" });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return false;
+        }
+
+        const profile = await liff.getProfile();
+        lineUserId = profile.userId;
+        lineImage.src = profile.pictureUrl;
+        lineName.textContent = profile.displayName;
+        console.log("profile", profile);
+      };
+      const handleSend = async () => {
+        const message = txtMessage.value;
+        console.log(lineUserId, message);
+        try {
+          data = {
+            userId: lineUserId,
+            message
+          };
+          const result = await axios.post(
+            "https://bf00-2405-9800-b871-fdbb-d50c-8e80-13a-647d.ngrok-free.app/send-message",
+            data
+          );
+        } catch (error) {
+          console.log("error", error);
+        }
+      };
+      main();
+    </script>
+  </body>
+</html>
