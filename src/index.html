@@ -35,16 +35,16 @@
         lineName.textContent = profile.displayName;
         console.log("profile", profile);
       };
+
       const handleSend = async () => {
         const message = txtMessage.value;
-        console.log(lineUserId, message);
         try {
           data = {
             userId: lineUserId,
             message
           };
           const result = await axios.post(
-            "https://bf00-2405-9800-b871-fdbb-d50c-8e80-13a-647d.ngrok-free.app/send-message",
+            "https://de69-2405-9800-b871-fdbb-8450-e14a-7523-8eba.ngrok-free.app/send-message",
             data
           );
           console.log(result.data);
